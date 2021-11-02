@@ -35,14 +35,14 @@ namespace ServiceWorkerCronJobDemo
             {
                 // Runs every two mintue
                 c.TimeZoneInfo = TimeZoneInfo.Local;
-                c.CronExpression = @"*/5 * * * *";
+                c.CronExpression = @"*/2 * * * *";
             });
 
             services.AddCronJob<RandomJobServie>(c =>
             {
-                // Runs every three mintues
+                // Runs every thirty mintues
                 c.TimeZoneInfo = TimeZoneInfo.Local;
-                c.CronExpression = @"*/30 * * * *";
+                c.CronExpression = @"*/3 * * * *";
             });
         }
 
