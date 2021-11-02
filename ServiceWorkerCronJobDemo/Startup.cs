@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ServiceWorkerCronJobDemo.Services;
+using ServiceWorkerCronJobDemo.Services.Interface;
 
 namespace ServiceWorkerCronJobDemo
 {
@@ -21,23 +22,27 @@ namespace ServiceWorkerCronJobDemo
         {
             services.AddControllers();
 
-            services.AddScoped<IMyScopedService, MyScopedService>();
+            services.AddScoped<IProcessService, ProcessService>();
 
-            services.AddCronJob<MyCronJob1>(c =>
+            services.AddCronJob<CreateJobService>(c =>
             {
+                // Runs every one mintue
+                c.TimeZoneInfo = TimeZoneInfo.Local;
+                c.CronExpression = @"*/1 * * * *";
+            });
+            // MyCronJob2 calls the scoped service MyScopedService
+            services.AddCronJob<ProcessJobService>(c =>
+            {
+                // Runs every two mintue
                 c.TimeZoneInfo = TimeZoneInfo.Local;
                 c.CronExpression = @"*/5 * * * *";
             });
-            // MyCronJob2 calls the scoped service MyScopedService
-            services.AddCronJob<MyCronJob2>(c =>
+
+            services.AddCronJob<RandomJobServie>(c =>
             {
+                // Runs every three mintues
                 c.TimeZoneInfo = TimeZoneInfo.Local;
-                c.CronExpression = @"* * * * *";
-            });
-            services.AddCronJob<MyCronJob3>(c =>
-            {
-                c.TimeZoneInfo = TimeZoneInfo.Local;
-                c.CronExpression = @"50 12 * * *";
+                c.CronExpression = @"*/30 * * * *";
             });
         }
 
