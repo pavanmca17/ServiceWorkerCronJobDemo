@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using ServiceWorkerCronJobDemo.Services.Interface;
+using ServiceWorkerCronJobDemo.Test;
 
 namespace ServiceWorkerCronJobDemo.Services
 {
@@ -17,6 +18,8 @@ namespace ServiceWorkerCronJobDemo.Services
 
         public async Task DoWork(CancellationToken cancellationToken)
         {
+             Trail trail = new Trail();
+
             _logger.LogInformation("ProcessService is working.");
              await Task.Delay(1000 * 20, cancellationToken);
         }
