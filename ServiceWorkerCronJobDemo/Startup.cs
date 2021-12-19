@@ -30,6 +30,7 @@ namespace ServiceWorkerCronJobDemo
                 c.TimeZoneInfo = TimeZoneInfo.Local;
                 c.CronExpression = @"*/1 * * * *";
             });
+
             // MyCronJob2 calls the scoped service MyScopedService
             services.AddCronJob<ProcessJobService>(c =>
             {
